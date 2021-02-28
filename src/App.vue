@@ -1,15 +1,17 @@
 <template>
-  <div id="app">
+  <main id="app">
     <h1>World Covid Tracker</h1>
-    <section>
+    <h3>Select a country below to see details</h3>
+    <section id='content'>
       <country-list :countries="countries"></country-list>
+      <country-details v-if='selectedCountry' :country='selectedCountry'></country-details>
     </section>
-
-  </div>
+  </main>
 </template>
 
 <script>
 import CountryList from '@/components/CountryList';
+import CountryDetails from '@/components/CountryDetails';
 import {eventBus} from './main.js';
 
 export default {
@@ -37,6 +39,7 @@ export default {
   },
   components: {
     'country-list': CountryList,
+    'country-details': CountryDetails
   }
 }
 </script>
@@ -50,4 +53,13 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
+#content {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  height: 100%;
+  grid-gap: 1em;
+}
+
 </style>
