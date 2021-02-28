@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>World Covid Tracker</h1>
+    <section>
+      <!-- <countries-list ></countries-list> -->
+    </section>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
+  data() {
+    return {
+      countries: [],
+      selectedCountry: null,
+    }
+  },
+  mounted() {
+    this.getCountries()
+  },
+  methods: {
+    getCountries: function() {
+      fetch('https://covid-api.mmediagroup.fr/v1/cases')
+      .then(res => res.json())
+      .then(data => this.countries = data)
+    },
+  },
   components: {
-    HelloWorld
+
   }
 }
 </script>
