@@ -2,13 +2,16 @@
   <div id="app">
     <h1>World Covid Tracker</h1>
     <section>
-      <!-- <countries-list ></countries-list> -->
+      <country-list :countries="countries"></country-list>
     </section>
 
   </div>
 </template>
 
 <script>
+import CountryList from '@/components/CountryList';
+import {eventBus} from './main.js';
+
 export default {
   name: 'App',
   data() {
@@ -18,8 +21,13 @@ export default {
     }
   },
   mounted() {
-    this.getCountries()
+    this.getCountries(),
+
+    eventBus.$on('selected-country', (country) => {
+      this.selectedCountry = country
+    })
   },
+
   methods: {
     getCountries: function() {
       fetch('https://covid-api.mmediagroup.fr/v1/cases')
@@ -28,7 +36,7 @@ export default {
     },
   },
   components: {
-
+    'country-list': CountryList,
   }
 }
 </script>
